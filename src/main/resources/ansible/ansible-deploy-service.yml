@@ -1,0 +1,28 @@
+---
+- hosts: all
+  #remote_user: smiguelnet
+  #vars:
+  #  - ansible_ssh_user: smiguelnet
+  tasks:
+    - name: Docker Registry Login
+      docker_login:
+        registry: 172.17.0.1:5000
+        #username: dockeradmin
+        #password: password
+        reauthorize: yes
+        tls_verify: no
+    - name: Build sample ubuntu
+      docker_image:
+        name: 172.17.0.1:5000/smiguelnet/sample-app:latest
+        nocache: yes
+        rm: yes
+        force: yes
+        state: build
+    - name: Run image
+      docker_container:
+        image: 172.17.0.1:5000/smiguelnet/sample-app:latest
+        name: sample-app
+        ports:
+          - 8080:8080
+        restart_policy: always
+        state: started

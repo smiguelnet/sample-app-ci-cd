@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "acde3c1c-7136-40a4-9010-7ef0d77e9e19",
+		"name": "Sample-app-test-cases",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get_person",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "92b0341a-d938-4110-975e-1ff631fb10ce",
+						"exec": [
+							"pm.test(\"response status 200\", function() {",
+							"   pm.response.to.have.status(200); ",
+							"});",
+							"",
+							"pm.test(\"request with performance test < 1seg\", function() {",
+							"   var responseTime = pm.response.responseTime;",
+							"   pm.expect(responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"pm.test(\"response should be JSON in the body\", function() {",
+							"   pm.response.to.be.withBody && pm.response.to.be.json; ",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_SERVICE}}/",
+					"host": [
+						"{{URL_SERVICE}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

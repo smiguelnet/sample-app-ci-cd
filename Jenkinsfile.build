@@ -1,0 +1,52 @@
+#!groovy
+node {
+    def scmVars = checkout scm
+
+    stage('Validate') {
+        // TODO...
+    }
+
+    stage('Compile') {
+        // TODO...
+    }
+
+    stage('Checkstyle') {
+        // TODO...
+    }
+
+    stage('Unit-Test') {
+        // TODO...
+    }
+
+    stage('Integrated-Test') {
+        // TODO...
+    }
+
+    stage('Coverage') {
+        // TODO...
+    }
+
+    if (env.BRANCH_NAME == 'master') {
+
+        stage('Releasing') {
+            // TODO...
+        }
+
+        stage('Artifact') {
+            // TODO...  -> Nexus
+        }
+
+        stage('Docker') {
+            // TODO...
+            docker.withServer(env.DOCKER_HOST) {
+                def pom = readMavenPom file: 'pom.xml'
+                env.CURRENTVERSION = validateVersion(pom.version)
+                sh """
+                        chmod +x ./docker-build.sh
+                        bash ./docker-build.sh ${pom.version}
+                """
+
+            }
+        }
+    }
+}

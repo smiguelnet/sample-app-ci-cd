@@ -303,7 +303,7 @@
                             <useColor>true</useColor>
                             <images>
                                 <image>
-                                    <name>${docker.image.repositoty}/sample-app:${pom.version}</name>
+                                    <name>${docker.image.repositoty}/${project.name}:${project.version}</name>
                                     <build>
                                         <dockerFile>${project.basedir}/Dockerfile</dockerFile>
                                     </build>
