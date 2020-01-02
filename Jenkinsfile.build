@@ -11,6 +11,10 @@ void printLineSep(String title) {
 node {
     def scmVars = checkout scm
 
+    environment {
+        URL_SERVER_CONSUL = "172.17.0.1"
+    }
+
     stage('Set-PATH') {
         def mavenHome = tool 'M3'
         def dockerHome = tool 'DOCKER'
