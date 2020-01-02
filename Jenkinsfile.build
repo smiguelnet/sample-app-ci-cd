@@ -66,7 +66,7 @@ node {
 
     stage("Nexus") {
         sh """
-             mvn source:jar deploy -DskipTests -Premote
+            mvn source:jar deploy -DskipTests -Premote -Dusername=admin -Dpassword=admin
         """
     }
 
