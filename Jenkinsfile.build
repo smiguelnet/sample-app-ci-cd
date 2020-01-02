@@ -50,5 +50,13 @@ node {
             }
             */
         }
+
+        stage('Deploy') {
+            build job: 'Sample-App-Deploy',
+            parameters: [
+                    [$class: 'BooleanParameterValue', name: 'runSmokeTest', value: true],
+                    [$class: 'BooleanParameterValue', name: 'runLoadTest', value: true]
+            ]
+        }
     }
 }

@@ -1,1 +1,30 @@
 #!groovy
+node {
+    def scmVars = checkout scm
+
+    stage('Ansible Deploy') {
+        //TODO ...
+    }
+
+    stage('Smoke Test') {
+        //TODO ...
+        echo "Checking Smoke Test execution parameter..."
+
+        if ("${params.runSmokeTest}".toBoolean()) {
+            echo "Running Smoke Test..."
+        }
+
+        echo "Load Test Completed"
+    }
+
+    stage('Load Test') {
+        //TODO ...
+        echo "Checking Load Test execution parameter..."
+
+        if ("${params.runLoadTest}".toBoolean()) {
+            echo "Running Load Test..."
+        }
+
+        echo "Load Test Completed"
+    }
+}
