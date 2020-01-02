@@ -64,11 +64,11 @@ node {
 
     //if (env.BRANCH_NAME == "master") {
 
-    stage("Nexus") {
-        sh """
-            mvn source:jar deploy -DskipTests -Premote -Dusername=admin -Dpassword=admin
-        """
-    }
+    //stage("Nexus") {
+    //    sh """
+    //        mvn source:jar deploy -DskipTests -Premote
+    //    """
+    //}
 
     stage("Docker") {
         printLineSep("Docker - Host")
