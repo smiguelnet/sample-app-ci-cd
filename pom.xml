@@ -11,7 +11,7 @@
 
     <groupId>net.smiguel.sample.app</groupId>
     <artifactId>sample-app</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>sample-app</name>
     <description>Demo project for CI/CD</description>
 
@@ -44,8 +44,8 @@
 
     <distributionManagement>
         <repository>
-            <id>nexus_releases</id>
-            <url>http://localhost:8081/repository/maven-releases/</url>
+            <id>nexus_local</id>
+            <url>http://localhost:8081/repository/maven-snapshots/</url>
         </repository>
     </distributionManagement>
 

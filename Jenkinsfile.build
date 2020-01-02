@@ -38,6 +38,7 @@ node {
 
         stage('Docker') {
             // TODO...
+            /*
             docker.withServer(env.DOCKER_HOST) {
                 def pom = readMavenPom file: 'pom.xml'
                 env.CURRENTVERSION = validateVersion(pom.version)
@@ -47,6 +48,7 @@ node {
                 """
 
             }
+            */
         }
     }
 }
