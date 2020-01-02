@@ -46,7 +46,7 @@ node {
 
     stage("Checkstyle") {
         sh """
-             mvn -rf target/site
+             mvn -rf ./target/site
              mvn checkstyle:checkstyle
         """
     }
