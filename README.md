@@ -15,9 +15,9 @@ New key: **config/sample-app/data**
 ```yaml
 app:
   person:
-    name: "sergioFromProperties"
-    userName: "userNameFromProperties"
-    email: "sergio.from.properties@smiguel.net"
+    name: "sergio"
+    userName: "smiguelnet"
+    email: "sergio@smiguel.net"
 ```
 
 ## License
