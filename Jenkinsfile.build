@@ -11,6 +11,12 @@ void printLineSep(String title) {
 node {
     def scmVars = checkout scm
 
+    stage('Set-PATH') {
+        def mavenHome = tool 'M3'
+        def dockerHome = tool 'DOCKER'
+        env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+    }
+
     stage("Pre-flight") {
         printLineSep("SCM - Branch")
         echo "${env.BRANCH_NAME}"
@@ -72,7 +78,6 @@ node {
         stage("Artifact") {
             sh """
                  mvn source:jar deploy -DskipTests -Djenkins.build.number=${BUILD_NUMBER}
-                 mvn versions:commit   
             """
         }
 
