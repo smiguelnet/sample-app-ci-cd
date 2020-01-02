@@ -66,7 +66,7 @@ node {
 
     stage("Nexus") {
         sh """
-             mvn source:jar deploy -DskipTests
+             mvn source:jar deploy -DskipTests -Premote
         """
     }
 
