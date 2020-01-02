@@ -1,42 +1,81 @@
 #!groovy
+
+void printLineSep(String title) {
+    echo "=================================="
+    if (title != null) {
+        echo title
+        echo " "
+    }
+}
+
 node {
     def scmVars = checkout scm
 
-    stage('Validate') {
-        // TODO...
+    stage("Pre-flight") {
+        printLineSep("SCM - ChangeSets")
+        def changeLogSets = currentBuild.changeSets
+        for (int i = 0; i < changeLogSets.size(); i++) {
+            def entries = changeLogSets[i].items
+            for (int entryIndex = 0; entryIndex < entries.length; entryIndex++) {
+                def entry = entries[entryIndex];
+                echo entry
+            }
+        }
     }
 
-    stage('Compile') {
-        // TODO...
+    stage("Validate") {
+        sh """
+             mvn validate
+        """
     }
 
-    stage('Checkstyle') {
-        // TODO...
+    stage("Compile") {
+        sh """
+             mvn clean compile
+        """
     }
 
-    stage('Unit-Test') {
-        // TODO...
+    stage("Checkstyle") {
+        sh """
+             mvn -rf target/site
+             mvn checkstyle:checkstyle
+        """
     }
 
-    stage('Integrated-Test') {
-        // TODO...
+    stage("Test") {
+        sh """
+             mvn test
+        """
     }
 
-    stage('Coverage') {
-        // TODO...
+    stage("Coverage") {
+        jacoco(
+                execPattern: 'target/*.exec',
+                classPattern: 'target/classes',
+                sourcePattern: 'src/main/java',
+                exclusionPattern: 'src/test*'
+        )
     }
 
-    if (env.BRANCH_NAME == 'master') {
+    if (env.BRANCH_NAME == "master") {
 
-        stage('Releasing') {
-            // TODO...
+        stage("Releasing") {
+            sh """
+                 mvn version:set -DnewVersion='${env.CURRENTVERSION}' -f pom.xml -DskipTests
+                 mvn versions:commit   
+            """
         }
 
-        stage('Artifact') {
-            // TODO...  -> Nexus
+        stage("Artifact") {
+            sh """
+                 mvn source:jar deploy -DskipTests -Djenkins.build.number=${BUILD_NUMBER}
+                 mvn versions:commit   
+            """
         }
 
-        stage('Docker') {
+
+
+        stage("Docker") {
             // TODO...
             /*
             docker.withServer(env.DOCKER_HOST) {
@@ -53,10 +92,10 @@ node {
 
         stage('Deploy') {
             build job: 'Sample-App-Deploy',
-            parameters: [
-                    [$class: 'BooleanParameterValue', name: 'runSmokeTest', value: true],
-                    [$class: 'BooleanParameterValue', name: 'runLoadTest', value: true]
-            ]
+                    parameters: [
+                            [$class: 'BooleanParameterValue', name: 'runSmokeTest', value: true],
+                            [$class: 'BooleanParameterValue', name: 'runLoadTest', value: true]
+                    ]
         }
     }
 }
