@@ -3,7 +3,7 @@ spring:
     name: sample-app
   cloud:
     consul:
-      host: 172.17.0.1
+      host: localhost
       port: 8500
       config:
         enabled: true
@@ -13,8 +13,6 @@ spring:
         instance-id: ${spring.application.name}
         health-check-path: /actuator/health
         health-check-interval: 10s
-  profiles:
-    include: default, dev
 server:
   port: 8080
   error:
