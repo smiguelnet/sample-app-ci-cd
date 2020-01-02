@@ -1,0 +1,5 @@
+app:
+  person:
+    name: "sergioFromProperties"
+    userName: "userNameFromProperties"
+    email: "sergio.from.properties@smiguel.net"

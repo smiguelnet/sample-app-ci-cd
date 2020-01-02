@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: sample-app
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      config:
+        enabled: true
+        format: YAML
+        fail-fast: true
+      discovery:
+        instance-id: ${spring.application.name}
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+server:
+  port: 8080
+  error:
+    whitelabel:
+      enabled: true
+
+
+
+
+

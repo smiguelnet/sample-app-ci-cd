@@ -6,6 +6,19 @@ Sample application that illustrates CI/CD process available at CI/CD repo [engag
 
 Simple Java Spring Boot Application 
 
+### Instructions
+
+#### Consul Key Registration
+
+New key: **config/sample-app/data**
+
+```yaml
+app:
+  person:
+    name: "sergioFromProperties"
+    userName: "userNameFromProperties"
+    email: "sergio.from.properties@smiguel.net"
+```
 
 ## License
 
