@@ -19,6 +19,9 @@ node {
         def mavenHome = tool 'M3'
         def dockerHome = tool 'DOCKER'
         env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+
+        printLineSep("PATHS")
+        echo "${env.URL_SERVER_CONSUL}"
     }
 
     stage("Pre-flight") {
