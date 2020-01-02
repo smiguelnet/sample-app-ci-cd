@@ -44,13 +44,6 @@ node {
         """
     }
 
-    stage("Checkstyle") {
-        sh """
-             mvn -rf ./target/site
-             mvn checkstyle:checkstyle
-        """
-    }
-
     stage("Test") {
         sh """
              mvn test
