@@ -62,42 +62,33 @@ node {
         )
     }
 
-    if (env.BRANCH_NAME == "master") {
+    //if (env.BRANCH_NAME == "master") {
 
-        stage("Releasing") {
+    stage("Nexus") {
+        sh """
+             mvn source:jar deploy -DskipTests
+        """
+    }
+
+    stage("Docker") {
+        printLineSep("Docker - Host")
+        echo "${env.DOCKER_HOST}"
+
+        docker.withServer(env.DOCKER_HOST) {
+            def pom = readMavenPom file: 'pom.xml'
             sh """
-                 mvn version:set -DnewVersion='${env.CURRENTVERSION}' -f pom.xml -DskipTests
-                 mvn versions:commit   
+                chmod +x ./docker-build.sh
+                bash ./docker-build.sh ${pom.version}
             """
-        }
-
-        stage("Artifact") {
-            sh """
-                 mvn source:jar deploy -DskipTests -Djenkins.build.number=${BUILD_NUMBER}
-            """
-        }
-
-        stage("Docker") {
-            // TODO...
-            /*
-            docker.withServer(env.DOCKER_HOST) {
-                def pom = readMavenPom file: 'pom.xml'
-                env.CURRENTVERSION = validateVersion(pom.version)
-                sh """
-                        chmod +x ./docker-build.sh
-                        bash ./docker-build.sh ${pom.version}
-                """
-
-            }
-            */
-        }
-
-        stage('Deploy') {
-            build job: 'Sample-App-Deploy',
-                    parameters: [
-                            [$class: 'BooleanParameterValue', name: 'runSmokeTest', value: true],
-                            [$class: 'BooleanParameterValue', name: 'runLoadTest', value: true]
-                    ]
         }
     }
+
+    stage('Deploy') {
+        build job: 'Sample-App-Deploy',
+                parameters: [
+                        [$class: 'BooleanParameterValue', name: 'runSmokeTest', value: true],
+                        [$class: 'BooleanParameterValue', name: 'runLoadTest', value: true]
+                ]
+    }
+    //}
 }
