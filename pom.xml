@@ -39,7 +39,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <jdk.version>1.8</jdk.version>
-        <docker.image.repositoty>smiguelnet</docker.image.repositoty>
+        <docker.image.repository>smiguelnet</docker.image.repository>
     </properties>
 
     <distributionManagement>
@@ -318,6 +318,19 @@
 
     <profiles>
         <profile>
+            <id>remote</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <distributionManagement>
+                <repository>
+                    <id>nexus_local</id>
+                    <url>http://172.17.0.1:8081/repository/maven-snapshots/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+
+        <profile>
             <id>docker</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
@@ -350,7 +363,7 @@
                             <useColor>true</useColor>
                             <images>
                                 <image>
-                                    <name>${docker.image.repositoty}/${project.name}:${project.version}</name>
+                                    <name>${docker.image.repository}/${project.name}:${project.version}</name>
                                     <build>
                                         <dockerFile>${project.basedir}/Dockerfile</dockerFile>
                                     </build>
