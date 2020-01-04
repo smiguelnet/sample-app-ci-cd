@@ -4,23 +4,16 @@
   #vars:
   #  - ansible_ssh_user: smiguelnet
   tasks:
-    - name: Docker Registry Login
-      docker_login:
-        registry: 172.17.0.1:5000
-        #username: dockeradmin
-        #password: password
-        reauthorize: yes
-        tls_verify: no
-    - name: Build sample ubuntu
+    - name: Build sample app
       docker_image:
-        name: 172.17.0.1:5000/smiguelnet/sample-app:latest
+        name: 192.168.1.67:5000/smiguelnet/sample-app:latest
         nocache: yes
         rm: yes
         force: yes
         state: build
     - name: Run image
       docker_container:
-        image: 172.17.0.1:5000/smiguelnet/sample-app:latest
+        image: 192.168.1.67:5000/smiguelnet/sample-app:latest
         name: sample-app
         ports:
           - 8080:8080

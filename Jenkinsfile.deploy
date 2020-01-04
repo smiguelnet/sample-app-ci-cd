@@ -2,9 +2,10 @@
 node {
     def scmVars = checkout scm
 
-    stage('Ansible Deploy') {
-        //TODO ...
+    stage('Ansible-Deploy') {
+        ansiblePlaybook playbook: './src/main/resources/ansible/ansible-deploy-service.yml'
     }
+
 
     stage('Smoke Test') {
         //TODO ...
