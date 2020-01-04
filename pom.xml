@@ -205,13 +205,6 @@
                         <delimiter>@</delimiter>
                     </delimiters>
                     <useDefaultDelimiters>false</useDefaultDelimiters>
-                    <outputDirectory>${project.build.directory}</outputDirectory>
-                    <resources>
-                        <resource>
-                            <directory>src/main</directory>
-                            <filtering>true</filtering>
-                        </resource>
-                    </resources>
                 </configuration>
             </plugin>
 
