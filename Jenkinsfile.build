@@ -83,6 +83,7 @@ node {
         }
     }
 
+    /*
     stage('Deploy') {
         build job: 'Sample-App-Deploy',
                 parameters: [
@@ -90,5 +91,11 @@ node {
                         [$class: 'BooleanParameterValue', name: 'runLoadTest', value: true]
                 ]
     }
+    */
+
+    stage('Deploy') {
+        ansiblePlaybook playbook: './target/classes/ansible/ansible-deploy-service.yml'
+    }
+
     //}
 }
