@@ -363,7 +363,7 @@
                             <useColor>true</useColor>
                             <images>
                                 <image>
-                                    <name>${docker.image.repository}/${project.name}:${project.version}</name>
+                                    <name>${docker.image.repository}/${project.name}:latest</name>
                                     <build>
                                         <dockerFile>${project.basedir}/Dockerfile</dockerFile>
                                     </build>
@@ -381,6 +381,9 @@
                         </configuration>
                     </plugin>
                 </plugins>
+
+                <finalName>${project.name}</finalName>
+
             </build>
         </profile>
     </profiles>

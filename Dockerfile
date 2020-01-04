@@ -3,7 +3,7 @@ FROM openjdk:11-jdk-slim
 #Set labels in order to inspect machine
 LABEL maintainer="Sergio Miguel <sergio@smiguelnet>"
 LABEL service.name="Sample App"
-LABEL service.version=${project.version}
+LABEL service.version="latest"
 
 #Set work dir
 WORKDIR /home/service
@@ -22,7 +22,7 @@ ENV JAVA_OPS -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -
 ENV JAVA_DEBUG_OPS -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:$LOG_PATH/garbage-collection.log
 
 #Add generated artifact from docker-maven-plugin
-ADD ./target/${project.build.finalName}.jar /home/service/sample-app.jar
+ADD ./target/sample-app.jar /home/service/sample-app.jar
 
 #Set entrypoint
 ENTRYPOINT ["java", "-jar", "/home/service/sample-app.jar", "-Djava.security.egd=file:/dev/./urandom", "${JAVA_OPS}", "-Dspring.profiles.active=${PROFILES}"]
