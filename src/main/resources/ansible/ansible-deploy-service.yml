@@ -6,14 +6,14 @@
   tasks:
     - name: Build sample app
       docker_image:
-        name: 192.168.1.67:5000/smiguelnet/sample-app:latest
+        name: "192.168.1.67:5000/smiguelnet/sample-app:latest"
         nocache: yes
         rm: yes
         force: yes
         state: build
     - name: Run image
       docker_container:
-        image: 192.168.1.67:5000/smiguelnet/sample-app:latest
+        image: "192.168.1.67:5000/smiguelnet/sample-app:latest"
         name: sample-app
         ports:
           - 8080:8080
