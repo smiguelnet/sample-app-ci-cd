@@ -3,9 +3,8 @@ node {
     def scmVars = checkout scm
 
     stage('Ansible-Deploy') {
-        ansiblePlaybook playbook: './src/main/resources/ansible/ansible-deploy-service.yml'
+        ansiblePlaybook playbook: './target/classes/ansible/ansible-deploy-service.yml'
     }
-
 
     stage('Smoke Test') {
         //TODO ...
