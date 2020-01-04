@@ -9,14 +9,8 @@ docker build \
   --label ci.executor="${EXECUTOR_NUMBER}" \
   --label ci.node="${NODE_NAME}" \
   --label ci.joburl="${BUILD_URL}" \
-  --tag "172.17.0.1:5000/smiguelnet/sample-app:latest" .
-
-# TAG IMAGE
-docker tag "172.17.0.1:5000/smiguelnet/sample-app:latest" "172.17.0.1:5000/smiguelnet/sample-app:$1"
-
-# INSPECT IMAGE
-docker image inspect -f '{{json .Config.Labels}}' "172.17.0.1:5000/smiguelnet/sample-app:$1" | python -m json.tool
+  --tag "192.168.1.67:5000/smiguelnet/sample-app:latest" .
 
 # PUSH IMAGE
-docker image push "172.17.0.1:5000/smiguelnet/sample-app:latest"
-docker image push "172.17.0.1:5000/smiguelnet/sample-app:$1"
+docker image push "192.168.1.67:5000/smiguelnet/sample-app:latest"
+
