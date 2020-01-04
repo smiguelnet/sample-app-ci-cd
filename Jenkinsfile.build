@@ -65,9 +65,11 @@ node {
     //if (env.BRANCH_NAME == "master") {
 
     stage("Nexus") {
-        sh """
-            mvn source:jar deploy -DskipTests -Premote
-        """
+        withCredentials([string(credentialsId: 'admin')]) {
+            sh """
+                mvn source:jar deploy -DskipTests -Premote
+            """
+        }
     }
 
     stage("Docker") {
