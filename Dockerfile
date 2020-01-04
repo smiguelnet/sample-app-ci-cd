@@ -13,6 +13,7 @@ EXPOSE 8080
 
 #Expose profiles as variables
 ENV PROFILES default
+ENV URL_SERVER_CONSUL 192.168.1.67
 
 #Set log path and expose it to be used by GC and Deap Dump
 ENV LOG_PATH ${APP_FOLDER}/logs
