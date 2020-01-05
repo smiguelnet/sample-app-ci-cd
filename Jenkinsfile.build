@@ -47,19 +47,28 @@ node {
         """
     }
 
-    stage("Test") {
+    stage("QA-UnitTest") {
         sh """
              mvn test
         """
     }
 
-    stage("Coverage") {
+    stage("QA-JaCoCo") {
         jacoco(
                 execPattern: 'target/*.exec',
                 classPattern: 'target/classes',
                 sourcePattern: 'src/main/java',
                 exclusionPattern: 'src/test*'
         )
+    }
+
+    stage("QA-Sonar") {
+        sh """
+             mvn sonar:sonar \\
+                  -Dsonar.projectKey=sample-app \\
+                  -Dsonar.host.url=http://192.168.1.67:9000 \\
+                  -Dsonar.login=e7fba607bf43a3e0745cd7ca246006dfffb73303
+        """
     }
 
     //if (env.BRANCH_NAME == "master") {
