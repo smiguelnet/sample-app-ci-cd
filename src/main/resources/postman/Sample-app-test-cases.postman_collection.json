@@ -35,7 +35,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL_SERVICE}}/",
+					"raw": "{{URL_SERVICE}}",
 					"host": [
 						"{{URL_SERVICE}}"
 					],
