@@ -106,5 +106,33 @@ node {
         ansiblePlaybook playbook: './target/classes/ansible/ansible-deploy-service.yml'
     }
 
+    stage('Test-Newman') {
+        try {
+            sh """
+                node --version
+            """
+
+            sh """
+                newman -v
+            """
+
+            echo "Executing smoke tests..."
+            sh """
+                newman run \\
+                    ./src/main/resources/postman/Sample-app-test-cases.postman_collection.json \\
+                    -e ./src/main/resources/postman/LOCAL.postman_environment.json \\
+                    -r cli,junit \\
+                    --reporter-junit-export "reports/sample-app-smoke-test.xml"
+            """
+
+        } catch (ex) {
+            echo "*** SMOKE TEST ERROR ***"
+            echo ex.getMessage()
+
+        } finally {
+            junit "reports/sample-app-smoke-test.xml"
+        }
+    }
+
     //}
 }

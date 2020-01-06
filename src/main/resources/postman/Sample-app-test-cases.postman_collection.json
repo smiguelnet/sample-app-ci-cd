@@ -40,7 +40,7 @@
 						"{{URL_SERVICE}}"
 					],
 					"path": [
-						""
+						"/person"
 					]
 				}
 			},
