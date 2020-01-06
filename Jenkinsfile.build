@@ -14,7 +14,8 @@ node {
     stage('Set-PATH') {
         def mavenHome = tool 'M3'
         def dockerHome = tool 'DOCKER'
-        env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+        def nodeHome = tool 'NODEJS'
+        env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${nodeHome}/bin:${env.PATH}"
 
         printLineSep("PATHS")
         echo "${env.URL_SERVER_CONSUL}"
