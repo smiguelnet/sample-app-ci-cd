@@ -117,6 +117,9 @@ node {
                 newman -v
             """
 
+            echo 'Waiting 60 seconds for deployment to complete prior starting smoke testing...'
+            sleep 60 // seconds
+
             echo "Executing smoke tests..."
             sh """
                 newman run \\
