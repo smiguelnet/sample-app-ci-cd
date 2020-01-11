@@ -68,7 +68,7 @@ node {
              mvn sonar:sonar \\
                   -Dsonar.projectKey=sample-app \\
                   -Dsonar.host.url=http://192.168.1.67:9000 \\
-                  -Dsonar.login=e7fba607bf43a3e0745cd7ca246006dfffb73303
+                  -Dsonar.login=75b58e250172f40aca6ce03d5c564e2fb82dab22
         """
     }
 
