@@ -19,6 +19,8 @@ node {
 
         printLineSep("PATHS")
         echo "${env.URL_SERVER_CONSUL}"
+        echo "${env.BRANCH_NAME}"
+        echo "${env.GIT_BRANCH}"
     }
 
     stage("Pre-flight") {
@@ -92,16 +94,6 @@ node {
             """
         }
     }
-
-    /*
-    stage('Deploy') {
-        build job: 'Sample-App-Deploy',
-                parameters: [
-                        [$class: 'BooleanParameterValue', name: 'runSmokeTest', value: true],
-                        [$class: 'BooleanParameterValue', name: 'runLoadTest', value: true]
-                ]
-    }
-    */
 
     stage('Deploy') {
         ansiblePlaybook playbook: './target/classes/ansible/ansible-deploy-service.yml'
